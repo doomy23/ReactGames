@@ -1,0 +1,38 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "rules": {
+        "array-bracket-spacing": ["error", "never"],
+        "block-scoped-var" : ["error"],
+        "brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
+        "complexity": ["error", 20],
+        "comma-spacing": ["error", { "before": false, "after": true }],
+        "dot-location": ["error", "property"],
+        "eqeqeq" : ["error", "always"],
+        "func-call-spacing": ["error", "never"],
+        "indent": ["error", 4],
+        "linebreak-style": ["error", "unix"],
+        "no-extra-parens" : ["error", "all"],
+        "no-console":0,
+        "no-debugger":0,
+        "no-else-return": ["error", {"allowElseIf": false}],
+        "no-multi-spaces": ["error"],
+        "no-trailing-spaces": ["error"],
+        "no-unneeded-ternary": ["error"],
+        "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+        "no-useless-concat": ["error"],
+        "no-var": ["error"],
+        "prefer-template": ["error"],
+        "quotes": ["error", "single"],
+        "semi": ["error", "always"]
+    }
+}
