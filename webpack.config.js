@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   mode: 'development',
   entry: {
-    index: './src/index.js',
+    app: './src/app.js',
     polyfills: './src/polyfills.js'
   },
   output: {
@@ -35,6 +35,13 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.js$/, // Transform all .js files required somewhere with Babel
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader'
+        }
+      },
+      {
         test: /\.css$/,
         use: [
           {
@@ -49,5 +56,11 @@ module.exports = {
         ]
       }
     ]
-  }
+  },
+  resolve: {
+    modules: ['node_modules', 'app'],
+    extensions: ['.js', '.jsx', '.react.js'],
+    mainFields: ['browser', 'jsnext:main', 'main'],
+  },
+  target: 'web'
 }
