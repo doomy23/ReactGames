@@ -1,5 +1,5 @@
 # ReactGames
-Simple games with websocket and Redux architechture
+Simple games in React with Websockets, SQLite3 and a Redux architechture in the front-end.
 
 ## Getting started
 

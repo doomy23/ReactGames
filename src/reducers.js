@@ -9,16 +9,7 @@ import history from './utils/history';
 import AppReducer from './containers/App/reducer';
 //import languageProviderReducer from 'containers/LanguageProvider/reducer';
 
-/**
- * Merges the main reducer with the router state and dynamically injected reducers
- */
-export default function createReducer(injectedReducers = {}) {
-  const rootReducer = combineReducers({
-    app: AppReducer,
-    router: connectRouter(history),
-  });
-
-  // Wrap the root reducer and return a new root reducer with router state
-  const mergeWithRouterState = connectRouter(history);
-  return mergeWithRouterState(rootReducer);
-}
+export default (history) => combineReducers({
+  app: AppReducer,
+  router: connectRouter(history)
+})

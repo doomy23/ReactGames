@@ -6,12 +6,12 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   mode: 'development',
   entry: {
-    app: './src/app.js',
-    polyfills: './src/polyfills.js'
+    app: path.resolve(__dirname, '../src/app.js'),
+    polyfills: path.resolve(__dirname, '../src/polyfills.js')
   },
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../dist'),
     publicPath: '/'
   },
   devtool: 'inline-source-map',
@@ -24,12 +24,9 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       title: 'D00MYs Games with ReactJS',
-      template: './src/index.html',
+      template: path.resolve(__dirname, '../src/index.html'),
       excludeChunks: ['polyfills'],
       cache: true
-    }),
-    new webpack.ProvidePlugin({
-      join: ['lodash', 'join']
     })
   ],
   module: {
@@ -49,7 +46,7 @@ module.exports = {
             options: {
               // you can specify a publicPath here
               // by default it use publicPath in webpackOptions.output
-              publicPath: './dist/css'
+              publicPath: '../dist/css'
             }
           },
           "css-loader"

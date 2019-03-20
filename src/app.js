@@ -19,15 +19,15 @@ const store = configureStore(initialState);
 // TODO
 let intl_messages = {};
 
-const render = ({ history, context }) => {
+const render = (history, context) => {
   ReactDOM.render(
     <Provider store={store} context={context}>
       <ConnectedRouter history={history} context={context}>
-        <App history={history} context={context}/>
+        <App history={history}/>
       </ConnectedRouter>
     </Provider>,
     document.getElementById('app')
   );
 };
 
-render({history, ReactReduxContext});
+render(history, ReactReduxContext);
