@@ -3,31 +3,41 @@ import '@babel/polyfill';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider, ReactReduxContext  } from 'react-redux';
+import { Provider, ReactReduxContext } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router/immutable';
-import { fromJS } from 'immutable';
-
-import App from './containers/App';
+import { Router, Route, Switch } from 'react-router-dom';
 
 import history from './utils/history';
 import configureStore from './configureStore';
 
+import HomePage from './containers/HomePage';
+import NotFoundPage from './containers/NotFoundPage';
+
+// Tells MiniCssExtractPlugin to add css statics
+require('../static/css/bootstrap.min.css');
+require('../static/css/default.css');
+
 // Create redux store with history
-const initialState = fromJS({});
+const initialState = {};
 const store = configureStore(initialState);
 
 // TODO
-let intl_messages = {};
+//let intl_messages = {};
 
-const render = (history, context) => {
+const render = (history) => {
   ReactDOM.render(
-    <Provider store={store} context={context}>
-      <ConnectedRouter history={history} context={context}>
-        <App history={history}/>
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <Router history={history}>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route path="" component={NotFoundPage} />
+          </Switch>
+        </Router>
       </ConnectedRouter>
     </Provider>,
     document.getElementById('app')
   );
 };
 
-render(history, ReactReduxContext);
+render(history);

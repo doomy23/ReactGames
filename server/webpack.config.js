@@ -19,8 +19,8 @@ module.exports = {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: "[name].css",
-      chunkFilename: "[id].css"
+      filename: "css/[name].css",
+      chunkFilename: "css/[id].css"
     }),
     new HtmlWebpackPlugin({
       title: 'D00MYs Games with ReactJS',
@@ -40,17 +40,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              // you can specify a publicPath here
-              // by default it use publicPath in webpackOptions.output
-              publicPath: '../dist/css'
-            }
-          },
-          "css-loader"
-        ]
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
       }
     ]
   },

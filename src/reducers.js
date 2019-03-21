@@ -10,6 +10,6 @@ import AppReducer from './containers/App/reducer';
 //import languageProviderReducer from 'containers/LanguageProvider/reducer';
 
 export default (history) => combineReducers({
-  app: AppReducer,
+  global: AppReducer,
   router: connectRouter(history)
 })

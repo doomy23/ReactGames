@@ -4,8 +4,8 @@ import { LOAD_USER, LOAD_USER_SUCCESS, LOAD_USER_ERROR } from './constants';
 // The initial state of the App
 const initialState = fromJS({
   loading: false,
-  error: false,
-  currentUser: false,
+  error: null,
+  currentUser: null,
   userData: {},
 });
 
@@ -14,8 +14,7 @@ function appReducer(state = initialState, action) {
     case LOAD_USER:
       return state
         .set('loading', true)
-        .set('error', false)
-        .set('userData', {});
+        .set('error', null);
     case LOAD_USER_SUCCESS:
       return state
         .set('loading', false)
@@ -23,8 +22,8 @@ function appReducer(state = initialState, action) {
         .set('userData', action.user);
     case LOAD_USER_ERROR:
       return state
-        .set('error', action.error)
-        .set('loading', false);
+        .set('loading', true)
+        .set('error', action.error);
     default:
       return state;
   }
