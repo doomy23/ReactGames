@@ -1,4 +1,4 @@
-import { LOAD_USER, LOAD_USER_SUCCESS, LOAD_USER_ERROR } from './constants';
+import { LOAD_USER, LOAD_USER_SUCCESS, LOAD_USER_ERROR, UPDATE_DIMENSIONS } from './constants';
 
 export function loadUser() {
   return {
@@ -17,5 +17,11 @@ export function loadUserError(error) {
   return {
     type: LOAD_USER_ERROR,
     error
+  };
+}
+
+export function updateDimensions() {
+  return {
+    type: UPDATE_DIMENSIONS
   };
 }

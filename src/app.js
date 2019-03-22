@@ -14,8 +14,8 @@ import HomePage from './containers/HomePage';
 import NotFoundPage from './containers/NotFoundPage';
 
 // Tells MiniCssExtractPlugin to add css statics
-require('../static/css/bootstrap.min.css');
-require('../static/css/default.css');
+import '../static/css/bootstrap.min.css';
+import '../static/css/default.css';
 
 // Create redux store with history
 const initialState = {};

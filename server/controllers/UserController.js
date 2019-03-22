@@ -3,11 +3,11 @@ const db = require('../database');
 class UserController{
   constructor() {
     this.routes = [
-      {url:'/api/user/uuid', call: this.getId}
+      {url:'/api/user/uuid', call: this.getUuid}
     ];
   }
 
-  getId(req, res) {
+  getUuid(req, res) {
     // Check the session
     if(req.session.uuid) {
       // Get the user
@@ -19,7 +19,7 @@ class UserController{
       }).catch((error) => {
         req.session.uuid = null;
         // Try again
-        this.getId(req, res);
+        this.getUuid(req, res);
       });
     } else {
       // Creating the user

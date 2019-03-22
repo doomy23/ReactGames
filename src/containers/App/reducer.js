@@ -1,11 +1,18 @@
 import { fromJS } from 'immutable';
-import { LOAD_USER, LOAD_USER_SUCCESS, LOAD_USER_ERROR } from './constants';
+import {
+  LOAD_USER,
+  LOAD_USER_SUCCESS, 
+  LOAD_USER_ERROR,
+  UPDATE_DIMENSIONS
+} from './constants';
 
 // The initial state of the App
 const initialState = fromJS({
   loading: false,
   error: null,
   currentUser: null,
+  contentHeight: window.innerHeight,
+  contentWidth: window.innerWidth,
   userData: {},
 });
 
@@ -24,6 +31,10 @@ function appReducer(state = initialState, action) {
       return state
         .set('loading', true)
         .set('error', action.error);
+    case UPDATE_DIMENSIONS:
+      return state
+        .set('contentHeight', window.innerHeight)
+        .set('contentWidth', window.innerWidth);
     default:
       return state;
   }

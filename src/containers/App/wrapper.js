@@ -3,14 +3,18 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Nav } from 'react-bootstrap';
 
 import {
   makeSelectLoading,
   makeSelectError,
-  makeSelectCurrentUser
+  makeSelectCurrentUser,
+  makeSelectContentHeight
 } from './selectors';
-import { loadUser } from './actions';
+import {
+  loadUser,
+  updateDimensions
+} from './actions';
 import reducer from './reducer';
 
 import ContentLoading from '../../components/ContentLoading';
@@ -22,13 +26,24 @@ class AppWrapper extends React.Component {
   }
 
   componentDidMount() {
+    window.addEventListener("resize", this.props.updateDimensions);
+
     // Get the user id from API
     if(!this.props.currentUser)
       this.props.loadUser();
   }
 
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.props.updateDimensions);
+  }
+
   render() {
-    const { loading, error, currentUser } = this.props;
+    const {
+      loading,
+      error,
+      currentUser,
+      contentHeight
+    } = this.props;
     let content = null;
 
     if(error) {
@@ -39,16 +54,35 @@ class AppWrapper extends React.Component {
       content = this.props.children;
     }
 
+    const contentProps = {
+      id: 'content',
+      style: {
+        height: contentHeight - 41
+      }
+    };
+
     return (
       <React.Fragment>
         <header>
           <Container>
             <Row>
-              <Col>Col 1</Col>
+              <Col>
+                <Nav
+                  activeKey="/home"
+                  onSelect={selectedKey => alert(`selected ${selectedKey}`)}
+                >
+                  <Nav.Item>
+                    <Nav.Link href="#/home">Active</Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link eventKey="link-2">Link</Nav.Link>
+                  </Nav.Item>
+                </Nav>
+              </Col>
             </Row>
           </Container>
         </header>
-        <Container>
+        <Container {...contentProps}>
           {content}
         </Container>
       </React.Fragment>
@@ -58,23 +92,26 @@ class AppWrapper extends React.Component {
 
 AppWrapper.propTypes = {
   loadUser: PropTypes.func,
+  updateDimensions: PropTypes.func,
 
   loading: PropTypes.bool,
   error: PropTypes.string,
   currentUser: PropTypes.string,
-  
+  contentHeight: PropTypes.number,
+
   children: PropTypes.any
 };
 
-const mapDispatchToProps = { loadUser };
+const mapDispatchToProps = { loadUser, updateDimensions };
 
 const mapStateToProps = createStructuredSelector({
   loading: makeSelectLoading(),
   error: makeSelectError(),
-  currentUser: makeSelectCurrentUser()
+  currentUser: makeSelectCurrentUser(),
+  contentHeight: makeSelectContentHeight()
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(AppWrapper);

@@ -19,5 +19,18 @@ const makeSelectLocation = () =>
     routerState.get('location').toJS(),
 );
 
-export { selectGlobal, makeSelectLoading, makeSelectError,
-  makeSelectCurrentUser, makeSelectLocation };
+const makeSelectContentHeight = () =>
+  createSelector(selectGlobal, globalState => globalState.get('contentHeight'));
+
+const makeSelectContentWidth = () =>
+  createSelector(selectGlobal, globalState => globalState.get('contentWidth'));
+
+export {
+  selectGlobal,
+  makeSelectLoading,
+  makeSelectError,
+  makeSelectCurrentUser,
+  makeSelectLocation, 
+  makeSelectContentHeight,
+  makeSelectContentWidth
+};
