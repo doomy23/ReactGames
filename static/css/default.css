@@ -15,6 +15,7 @@ body {
 }
 
 header{
+  height: 40px;
   border-bottom-color: #000000;
   border-bottom-style: solid;
   border-bottom-width: 1px;
@@ -26,7 +27,31 @@ header{
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
 }
 
+.nav {
+  display: block;
+  list-style: none;
+}
+
+.nav-item {
+  display: block;
+  list-style: none;
+  float: left;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: black;
+  font-weight: bold;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0.65+0,0+100;Neutral+Density */
+  background: none; /* Old browsers */
+  background: -moz-linear-gradient(top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+}
+
 #content {
+  padding-top: 10px;
   border-left-color: #000000;
   border-left-style: solid;
   border-left-width: 1px;
@@ -39,4 +64,25 @@ header{
   background: -webkit-linear-gradient(top, #eeeeee 0%,#eeeeee 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom, #eeeeee 0%,#eeeeee 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=0 ); /* IE6-9 */
+}
+
+#content #logo {
+  text-align: center;
+  margin: 20px auto;
+}
+
+#content #logo img {
+  padding: 0;
+  margin: 0;
+  max-width: 100%;
+  height: auto;
+}
+
+#content form #formUserName {
+  text-align: center;
+}
+
+#content form #formUserNameSubmit {
+  width: 100%;
+  text-transform: uppercase;
 }

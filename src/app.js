@@ -5,13 +5,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider, ReactReduxContext } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router/immutable';
-import { Router, Route, Switch } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 
 import history from './utils/history';
 import configureStore from './configureStore';
 
-import HomePage from './containers/HomePage';
-import NotFoundPage from './containers/NotFoundPage';
+import App from './containers/App';
 
 // Tells MiniCssExtractPlugin to add css statics
 import '../static/css/bootstrap.min.css';
@@ -29,10 +28,7 @@ const render = (history) => {
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <Router history={history}>
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route path="" component={NotFoundPage} />
-          </Switch>
+          <App />
         </Router>
       </ConnectedRouter>
     </Provider>,

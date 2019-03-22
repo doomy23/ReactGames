@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const session = require('express-session');
 const cookieSession = require('cookie-session');
+const bodyParser = require('body-parser');
 
 const config = require('./webpack.config.js');
 const setup = require('./api.js');
@@ -16,6 +17,14 @@ const compiler = webpack(config);
 const secret = `s:${process.pid}`;
 
 app.set('trust proxy', 1);
+
+// to support JSON-encoded bodies
+app.use(bodyParser.json());
+
+// to support URL-encoded bodies
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 app.use(webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath

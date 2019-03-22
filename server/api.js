@@ -5,8 +5,7 @@ const { find } = require('lodash');
 const controllers = require('./controllers');
 
 module.exports = (app, options) => {
-
-  app.get('/api*', (req, res, next) => {
+  app.all('/api*', (req, res, next) => {
     const urlParams = req.url.split('/');
     let foundApiRoute = false;
 

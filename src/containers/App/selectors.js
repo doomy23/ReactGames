@@ -8,6 +8,9 @@ const selectRouter = state => state.get('router');
 const makeSelectLoading = () =>
   createSelector(selectGlobal, globalState => globalState.get('loading'));
 
+const makeSelectLoaded = () =>
+  createSelector(selectGlobal, globalState => globalState.get('loaded'));
+
 const makeSelectError = () =>
   createSelector(selectGlobal, globalState => globalState.get('error'));
 
@@ -28,9 +31,10 @@ const makeSelectContentWidth = () =>
 export {
   selectGlobal,
   makeSelectLoading,
+  makeSelectLoaded,
   makeSelectError,
   makeSelectCurrentUser,
-  makeSelectLocation, 
+  makeSelectLocation,
   makeSelectContentHeight,
   makeSelectContentWidth
 };
