@@ -6,6 +6,7 @@ const Moment = require('moment');
 
 const db = require('./database');
 const controllers = require('./controllers');
+const config = require('./utils/config');
 const { SESSION_EXPIRED_ERROR } = require('./utils/errors');
 
 module.exports = (app, options) => {
@@ -19,7 +20,7 @@ module.exports = (app, options) => {
         if(user.expiresAt.diff(Moment(new Date())) > 0) {
           // OK - Update the expiresAt date
           req.user = user;
-          user.expiresAt = Moment(new Date()).add(15, 'm').toDate();
+          user.expiresAt = Moment(new Date()).add(config.user_session_expires_in, 'm').toDate();
 
           user.save().then(() => {
             next();

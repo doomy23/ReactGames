@@ -4,6 +4,7 @@ const { get } = require('lodash');
 const Moment = require('moment');
 
 const db = require('../database');
+const config = require('../utils/config');
 const { makeSuccessResponse } = require('../utils/response');
 const { USER_UUID_CREATE_ERROR } = require('../utils/errors');
 
@@ -35,7 +36,7 @@ class UserController{
       db.User.create({
         name: paramUserName,
         image: null,
-        expiresAt: Moment(new Date()).add(15, 'm').toDate()
+        expiresAt: Moment(new Date()).add(config.user_session_expires_in, 'm').toDate()
       }).then((user) => {
         const identity = user.dataValues;
         req.session.uuid = identity.uuid;

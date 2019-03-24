@@ -1,3 +1,11 @@
+# Env configs
+.reactgamesrc
+.reactgamesrc.json
+.reactgamesrc.yaml
+.reactgamesrc.yml
+.reactgamesrc.js
+reactgames.config.js
+
 # Logs
 logs
 *.log
