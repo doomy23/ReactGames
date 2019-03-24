@@ -14,6 +14,7 @@ import App from './containers/App';
 
 // Tells MiniCssExtractPlugin to add css statics
 import '../static/css/bootstrap.min.css';
+import '../static/fontawesome/css/all.min.css';
 import '../static/css/default.css';
 
 // Create redux store with history

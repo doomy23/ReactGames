@@ -24,7 +24,7 @@ module.exports = {
       chunkFilename: "css/[id].css"
     }),
     new HtmlWebpackPlugin({
-      title: 'D00MYs Games with ReactJS',
+      title: 'D00MYs Games - A React.JS Project',
       template: path.resolve(__dirname, '../src/index.html'),
       excludeChunks: ['polyfills'],
       cache: true
@@ -50,7 +50,19 @@ module.exports = {
             loader: 'file-loader',
             options: {
               outputPath: 'img',
-              name: '[path][hash].[ext]'
+              name: '[hash].[ext]'
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(ttf|woff2?|eot)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: 'fonts',
+              name: '[hash].[ext]'
             }
           }
         ]

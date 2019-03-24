@@ -18,9 +18,7 @@ const makeSelectCurrentUser = () =>
   createSelector(selectGlobal, globalState => globalState.get('currentUser'));
 
 const makeSelectLocation = () =>
-  createSelector(selectRouter, routerState =>
-    routerState.get('location').toJS(),
-);
+  createSelector(selectRouter, routerState => routerState.get('location').toJS());
 
 const makeSelectContentHeight = () =>
   createSelector(selectGlobal, globalState => globalState.get('contentHeight'));

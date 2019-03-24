@@ -1,17 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+
+import FontAwesome from 'react-fontawesome';
 import { Container, Row, Col, Nav } from 'react-bootstrap';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, NavLink } from 'react-router-dom';
 
 import {
   makeSelectLoading,
   makeSelectLoaded,
   makeSelectError,
   makeSelectCurrentUser,
-  makeSelectContentHeight
+  makeSelectContentHeight,
+  makeSelectLocation,
 } from './selectors';
 import {
   updateDimensions
@@ -20,6 +23,7 @@ import reducer from './reducer';
 
 import HomePage from '../HomePage';
 import GamesPage from '../GamesPage';
+import AboutPage from '../AboutPage';
 import NotFoundPage from '../NotFoundPage';
 
 import ContentLoading from '../../components/ContentLoading';
@@ -28,10 +32,6 @@ import ContentError from '../../components/ContentError';
 class App extends React.Component {
   componentDidMount() {
     window.addEventListener("resize", this.props.updateDimensions);
-
-    // Get the user id from API
-    /*if(!this.props.currentUser)
-      this.props.loadUser();*/
   }
 
   componentWillUnmount() {
@@ -44,9 +44,17 @@ class App extends React.Component {
       loaded,
       error,
       currentUser,
-      contentHeight
+      contentHeight,
+      location
     } = this.props;
+
     let content = null;
+    const contentProps = {
+      id: 'content',
+      style: {
+        height: contentHeight - 41
+      }
+    };
 
     if(error) {
       content =  (<ContentError error={error}/>);
@@ -56,6 +64,7 @@ class App extends React.Component {
       content = (
         <Switch>
           <Route exact path="/" component={GamesPage} />
+          <Route exact path="/about" component={AboutPage} />
           <Route path="" component={NotFoundPage} />
         </Switch>
       );
@@ -64,17 +73,11 @@ class App extends React.Component {
       content = (
         <Switch>
           <Route exact path="/" component={HomePage} />
+          <Route exact path="/about" component={AboutPage} />
           <Route path="" component={NotFoundPage} />
         </Switch>
       );
     }
-
-    const contentProps = {
-      id: 'content',
-      style: {
-        height: contentHeight - 41
-      }
-    };
 
     return (
       <React.Fragment>
@@ -82,16 +85,17 @@ class App extends React.Component {
           <Container>
             <Row>
               <Col>
-                <Nav
-                  variant="pills"
-                  activeKey="games"
-                  onSelect={selectedKey => alert(`selected ${selectedKey}`)}
-                >
-                  <Nav.Item key="games">
-                    <Nav.Link eventKey="games">Games</Nav.Link>
+                <Nav variant="pills">
+                  <Nav.Item>
+                    <NavLink exact to="/" className="nav-link">
+                      Games
+                    </NavLink>
                   </Nav.Item>
-                  <Nav.Item key="about" style={{float: 'right'}}>
-                    <Nav.Link eventKey="about">About</Nav.Link>
+                  <Nav.Item style={{float: 'right'}}>
+                    <NavLink exact to="/about" className="nav-link">
+                      About
+                      <FontAwesome name='info-circle'/>
+                    </NavLink>
                   </Nav.Item>
                 </Nav>
               </Col>
@@ -114,6 +118,7 @@ App.propTypes = {
   error: PropTypes.string,
   currentUser: PropTypes.string,
   contentHeight: PropTypes.number,
+  location: PropTypes.object,
 };
 
 const mapDispatchToProps = { updateDimensions };
@@ -123,7 +128,8 @@ const mapStateToProps = createStructuredSelector({
   loaded: makeSelectLoaded(),
   error: makeSelectError(),
   currentUser: makeSelectCurrentUser(),
-  contentHeight: makeSelectContentHeight()
+  contentHeight: makeSelectContentHeight(),
+  location: makeSelectLocation(),
 });
 
 export default connect(

@@ -1,17 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { Row, Col } from 'react-bootstrap';
+import FontAwesome from 'react-fontawesome';
 
 class ContentError extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
-      <Row>
+      <Row className={classNames("content--error")}>
         <Col>
-          {this.props.error}
+          <h1>
+            <FontAwesome name='exclamation-triangle'/>
+            Error !
+          </h1>
+          <div>
+            {this.props.error}
+          </div>
         </Col>
       </Row>
     );

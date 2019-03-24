@@ -1,16 +1,20 @@
 import React from 'react';
+import classNames from 'classnames';
 import { Row, Col } from 'react-bootstrap';
 
-class ContentLoading extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+import loaderGIF from '../../../static/img/loader.gif';
 
+class ContentLoading extends React.Component {
   render() {
     return (
-      <Row>
+      <Row className={classNames("content--loading")}>
         <Col>
-          Loading...
+          <h1>
+            Loading...
+          </h1>
+          <div>
+            <img src={loaderGIF} alt="Please wait..."/>
+          </div>
         </Col>
       </Row>
     );
