@@ -1,20 +1,25 @@
 const process = require('process');
 const express = require('express');
+const http = require('http');
+const socketIO = require('socket.io');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const session = require('express-session');
 const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 
-const config = require('./webpack.config.js');
-const setup = require('./api.js');
+const webpackConfig = require('./webpack.config.js');
+const setupApi = require('./api.js');
+const config = require('./utils/config');
 const db = require('./database');
 
 const app = express();
-const compiler = webpack(config);
-
-// Unique to each instance of the server (ran once on start)
-const secret = `s:${process.pid}`;
+const server = http.Server(app);
+const ws = socketIO(server, {
+  path: '/api/ws',
+  cookie: true
+});
+const compiler = webpack(webpackConfig);
 
 app.set('trust proxy', 1);
 
@@ -27,23 +32,22 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(webpackDevMiddleware(compiler, {
-  publicPath: config.output.publicPath
+  publicPath: webpackConfig.output.publicPath
 }));
 
 app.use(cookieSession({
   name: 'session',
-  keys: [secret],
+  keys: [config.cookies.secret],
   // Cookie Options
-  maxAge: 24 * 60 * 60 * 1000, // 24 hours
+  maxAge: config.cookies.maxAge || 24 * 60 * 60 * 1000,
   signed: true,
   overwrite: true
 }))
 
-setup(app, {});
+setupApi(app, ws);
 
 db.sequelize.sync().then(() => {
-  // Serve the files on port 3000.
-  app.listen(3000, function () {
+  server.listen(3000, () => {
     console.log('ReactGames listening on port 3000!\n');
   });
 });

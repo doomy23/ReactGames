@@ -1,15 +1,15 @@
 /**
- * API middleware
+ * API handling requests and websockets
  */
 const { find } = require('lodash');
 const Moment = require('moment');
 
+const config = require('./utils/config');
 const db = require('./database');
 const controllers = require('./controllers');
-const config = require('./utils/config');
 const { SESSION_EXPIRED_ERROR } = require('./utils/errors');
 
-module.exports = (app, options) => {
+module.exports = (app, ws) => {
   // Check if user is in and check its expiration
   app.all('*', (req, res, next) => {
     if(req.session.uuid) {
@@ -55,6 +55,10 @@ module.exports = (app, options) => {
     if(urlParams.length > 3) {
       const controller = urlParams[2];
 
+      // No next on websockets
+      if(controller == 'ws')
+        foundApiRoute = true;
+
       if(controller in controllers) {
         const instance = new controllers[controller]();
         const route = find(instance.routes, {url: req.url});
@@ -68,6 +72,20 @@ module.exports = (app, options) => {
 
     if(!foundApiRoute)
       next();
+  });
+
+  // Websockets API
+  ws.on('connection', (socket) => {
+    console.log('a user connected');
+
+    socket.on('disconnect', () => {
+      console.log('user disconnected');
+    });
+
+    socket.on('event', (value) => {
+      console.log('value: ' + value);
+      ws.emit('event', 'LOL');
+    });
   });
 
   return app;
