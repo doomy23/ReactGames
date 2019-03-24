@@ -44,6 +44,18 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
       {
+        test: /\.ico$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: '',
+              name: '[name].[ext]'
+            }
+          }
+        ]
+      },
+      {
         test: /\.(jpe?g|png|gif|svg)$/i,
         use: [
           {

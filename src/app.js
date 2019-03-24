@@ -12,6 +12,8 @@ import configureStore from './configureStore';
 
 import App from './containers/App';
 
+// Add favicon.ico to the dist root
+import '../static/favicon.ico';
 // Tells MiniCssExtractPlugin to add css statics
 import '../static/css/bootstrap.min.css';
 import '../static/fontawesome/css/all.min.css';
