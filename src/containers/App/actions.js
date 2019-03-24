@@ -13,10 +13,10 @@ export function loadUser(userName) {
   };
 }
 
-export function loadUserSuccess(user) {
+export function loadUserSuccess(data) {
   return {
     type: LOAD_USER_SUCCESS,
-    user
+    data
   };
 }
 

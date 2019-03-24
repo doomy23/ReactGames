@@ -23,7 +23,7 @@ export function* getUserUuid(action) {
     });
     yield put(loadUserSuccess(response.data));
   } catch (e) {
-    let error = get(e, 'response.data.error', e.message);
+    const error = get(e, 'response.data.error', {code: 500, message: e.message});
     yield put(loadUserError(error));
   }
 }

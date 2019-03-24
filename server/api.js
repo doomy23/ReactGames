@@ -2,9 +2,51 @@
  * API middleware
  */
 const { find } = require('lodash');
+const Moment = require('moment');
+
+const db = require('./database');
 const controllers = require('./controllers');
+const { SESSION_EXPIRED_ERROR } = require('./utils/errors');
 
 module.exports = (app, options) => {
+  // Check if user is in and check its expiration
+  app.all('*', (req, res, next) => {
+    if(req.session.uuid) {
+      const uuid = req.session.uuid;
+
+      db.User.findByPk(uuid).then((user) => {
+        // Check user expiresAt
+        if(user.expiresAt.diff(Moment(new Date())) > 0) {
+          // OK - Update the expiresAt date
+          req.user = user;
+          user.expiresAt = Moment(new Date()).add(15, 'm').toDate();
+
+          user.save().then(() => {
+            next();
+          }).catch((error) => {
+            // Not supposed to happen...
+            next();
+          });
+
+        } else {
+          // Expired!
+          req.session.uuid = null;
+          req.user = undefined;
+          res.status(500).json(SESSION_EXPIRED_ERROR);
+        }
+
+      }).catch((error) => {
+        req.session.uuid = null;
+        req.user = undefined;
+        next();
+      });
+
+    } else {
+      next();
+    }
+  });
+
+  // Basic Api in ajax
   app.all('/api*', (req, res, next) => {
     const urlParams = req.url.split('/');
     let foundApiRoute = false;

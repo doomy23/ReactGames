@@ -1,8 +1,11 @@
 const process = require('process');
 const sleep = require('system-sleep');
 const { get } = require('lodash');
+const Moment = require('moment');
 
 const db = require('../database');
+const { makeSuccessResponse } = require('../utils/response');
+const { USER_UUID_CREATE_ERROR } = require('../utils/errors');
 
 class UserController{
   constructor() {
@@ -14,46 +17,38 @@ class UserController{
   getUuid(req, res) {
     const paramUserName = get(req.body, 'userName', 'Incognito');
 
-    // Check the session
-    if(req.session.uuid) {
-      // Get the user
-      const uuid = req.session.uuid;
+    // Check the user
+    if(req.user) {
+      const identity = req.user.dataValues;
 
-      db.User.findByPk(uuid).then((user) => {
-        const identity = user.dataValues;
-
-        if(user.name != paramUserName) {
-          user.name = paramUserName;
-          user.save().then(() => {
-            identity.name = paramUserName;
-            res.json(identity);
-          });
-        } else {
-          res.json(identity);
-        }
-      }).catch((error) => {
-        req.session.uuid = null;
-        // Try again
-        this.getUuid(req, res);
-      });
+      if(req.user.name != paramUserName) {
+        req.user.name = paramUserName;
+        req.user.save().then(() => {
+          identity.name = paramUserName;
+          res.json(makeSuccessResponse(identity));
+        });
+      } else {
+        res.json(makeSuccessResponse(identity));
+      }
     } else {
       // Creating the user
       db.User.create({
         name: paramUserName,
         image: null,
-        connectedAt: new Date()
+        expiresAt: Moment(new Date()).add(15, 'm').toDate()
       }).then((user) => {
         const identity = user.dataValues;
         req.session.uuid = identity.uuid;
+        req.user = user;
 
-        console.log();
         if (process.env.NODE_ENV !== 'production') {
           sleep(1500);
         }
 
-        res.json(identity);
+        res.json(makeSuccessResponse(identity));
+
       }).catch((error) => {
-        res.status(500).json({ error: 'Could not create user uuid' });
+        res.status(500).json(USER_UUID_CREATE_ERROR);
       });
     }
   }

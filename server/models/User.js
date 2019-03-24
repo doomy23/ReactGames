@@ -9,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     name: DataTypes.STRING,
     image: DataTypes.STRING,
-    connectedAt: {
+    expiresAt: {
       type: DataTypes.DATE,
       get: function () {
-        return Moment(this.getDataValue('connected_at')).format('Y-m-D H:I:S');
+        return Moment(this.getDataValue('expiresAt'));
       }
     }
   });

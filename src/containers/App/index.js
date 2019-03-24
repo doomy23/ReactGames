@@ -21,6 +21,11 @@ import {
 } from './actions';
 import reducer from './reducer';
 
+import {
+  HOME_PATH,
+  ABOUT_PATH,
+} from './routes';
+
 import HomePage from '../HomePage';
 import GamesPage from '../GamesPage';
 import AboutPage from '../AboutPage';
@@ -63,8 +68,8 @@ class App extends React.Component {
     } else if(loaded) {
       content = (
         <Switch>
-          <Route exact path="/" component={GamesPage} />
-          <Route exact path="/about" component={AboutPage} />
+          <Route exact path={HOME_PATH} component={GamesPage} />
+          <Route exact path={ABOUT_PATH} component={AboutPage} />
           <Route path="" component={NotFoundPage} />
         </Switch>
       );
@@ -72,8 +77,8 @@ class App extends React.Component {
       // No user uuid yet
       content = (
         <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/about" component={AboutPage} />
+          <Route exact path={HOME_PATH} component={HomePage} />
+          <Route exact path={ABOUT_PATH} component={AboutPage} />
           <Route path="" component={NotFoundPage} />
         </Switch>
       );
@@ -87,12 +92,12 @@ class App extends React.Component {
               <Col>
                 <Nav variant="pills">
                   <Nav.Item>
-                    <NavLink exact to="/" className="nav-link">
+                    <NavLink exact to={HOME_PATH} className="nav-link">
                       Games
                     </NavLink>
                   </Nav.Item>
                   <Nav.Item style={{float: 'right'}}>
-                    <NavLink exact to="/about" className="nav-link">
+                    <NavLink exact to={ABOUT_PATH} className="nav-link">
                       About
                       <FontAwesome name='info-circle'/>
                     </NavLink>
@@ -115,7 +120,7 @@ App.propTypes = {
 
   loading: PropTypes.bool,
   loaded: PropTypes.bool,
-  error: PropTypes.string,
+  error: PropTypes.object,
   currentUser: PropTypes.string,
   contentHeight: PropTypes.number,
   location: PropTypes.object,

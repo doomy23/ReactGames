@@ -29,8 +29,8 @@ function appReducer(state = initialState, action) {
       return state
         .set('loading', false)
         .set('loaded', true)
-        .set('currentUser', action.user.name)
-        .set('userData', action.user);
+        .set('currentUser', action.data.name)
+        .set('userData', action.data);
     case LOAD_USER_ERROR:
       return state
         .set('loading', false)
