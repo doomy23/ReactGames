@@ -38,11 +38,10 @@ app.use(webpackDevMiddleware(compiler, {
 app.use(cookieSession({
   name: 'session',
   keys: [config.cookies.secret],
-  // Cookie Options
   maxAge: config.cookies.maxAge || 24 * 60 * 60 * 1000,
   signed: true,
   overwrite: true
-}))
+}));
 
 setupApi(app, ws);
 

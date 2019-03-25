@@ -36,7 +36,7 @@ class UserController{
       db.User.create({
         name: paramUserName,
         image: null,
-        expiresAt: Moment(new Date()).add(config.user_session_expires_in, 'm').toDate()
+        expiresAt: Moment(new Date()).add(config.session.expires_in, 'm').toDate()
       }).then((user) => {
         const identity = user.dataValues;
         req.session.uuid = identity.uuid;

@@ -18,18 +18,20 @@ import {
 const fetchApi = (url) => Api.get(url);
 const postApi = (url, params) => Api.post(url, params);
 
+function* initWebsocketsEvents(uuid) {
+  // Create websocket and bind events
+  const websocketsEvents = new WebsocketsEvents();
+  websocketsEvents.bind(Websocket(uuid));
+  Websocket().emit('event', 'test');
+}
+
 export function* getUserUuid(action) {
   try {
     const response = yield call(postApi, 'user/uuid', {
       userName: get(action, 'userName', null)
     });
-
-    // Create websocket and bind events
-    const websocketsEvents = new WebsocketsEvents();
-    websocketsEvents.bind(Websocket());
-    Websocket().emit('event', 'test');
-
     yield put(loadUserSuccess(response.data));
+    yield initWebsocketsEvents(get(response.data, 'data.uuid'));
   } catch (e) {
     const error = get(e, 'response.data.error', {code: 500, message: e.message});
     yield put(loadUserError(error));

@@ -42,7 +42,10 @@
         "secret": "VZQVOO5zyEMI3Des",
         "maxAge": 8640000
       },
-      "user_session_expires_in": 15
+      "session": {
+        "expires_in": 15,
+        "expires_update_each": 5
+      }
     }
   },
   "devDependencies": {
