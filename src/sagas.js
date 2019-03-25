@@ -22,7 +22,6 @@ function* initWebsocketsEvents(uuid) {
   // Create websocket and bind events
   const websocketsEvents = new WebsocketsEvents();
   websocketsEvents.bind(Websocket(uuid));
-  Websocket().emit('event', 'test');
 }
 
 export function* getUserUuid(action) {

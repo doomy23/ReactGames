@@ -1,8 +1,10 @@
 const path = require('path');
 const process = require('process');
-const webpack = require('webpack'); //to access built-in plugins
-const HtmlWebpackPlugin = require('html-webpack-plugin'); //installed via npm
+const webpack = require('webpack');
+const TerserJSPlugin = require("terser-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = {
   mode: 'development',
@@ -16,6 +18,12 @@ module.exports = {
     publicPath: '/'
   },
   devtool: 'inline-source-map',
+  optimization: {
+    minimizer: [
+      new TerserJSPlugin({}),
+      new OptimizeCSSAssetsPlugin({})
+    ]
+  },
   plugins: [
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
@@ -40,7 +48,7 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/,
+        test: /\.s?css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
       {

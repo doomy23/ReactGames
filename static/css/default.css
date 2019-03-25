@@ -70,6 +70,15 @@ header .nav-link .fa {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=0 ); /* IE6-9 */
 }
 
+#content a {
+  color: #28a745;
+  font-weight: bold;
+}
+
+#content a:hover {
+  color: #19672b;
+}
+
 #content .content--loading,
 #content .content--error {
   padding-top: 40px;
@@ -82,12 +91,12 @@ header .nav-link .fa {
   color: #721c24;
 }
 
-#content #logo {
+#content h1.logo {
   text-align: center;
   margin: 20px auto;
 }
 
-#content #logo img {
+#content h1.logo img {
   padding: 0;
   margin: 0;
   max-width: 100%;
@@ -101,4 +110,43 @@ header .nav-link .fa {
 #content form #formUserNameSubmit {
   width: 100%;
   text-transform: uppercase;
+}
+
+#content ul.original-contributors {
+  list-style-type: none;
+}
+
+#content ul.original-contributors li img {
+  height: auto;
+  width: 100px;
+  max-width: 100%;
+  border-radius: 100px;
+  float: left;
+  margin-right: 20px;
+}
+
+#content ul.original-contributors li .name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#content ul.original-contributors li a i {
+  font-size: 40px;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+#content i.fa.big {
+  font-size: 80px;
+  color: #28a745;
+  margin: 20px;
+}
+
+.content-transition-appear {
+  opacity: 0.01;
+}
+
+.content-transition-appear.content-transition-appear-active {
+  opacity: 1;
+  transition: opacity .75s ease-in;
 }

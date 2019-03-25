@@ -5,7 +5,6 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { get, set } from 'lodash';
 import {
-  Container,
   Row,
   Col,
   Form,
@@ -21,7 +20,7 @@ import {
 } from '../App/actions';
 import reducer from '../App/reducer';
 
-import logoPng from '../../../static/img/doomys-logo.png';
+import Logo from '../../components/Header/Logo';
 
 class HomePage extends React.Component {
   constructor(...args) {
@@ -68,11 +67,9 @@ class HomePage extends React.Component {
     return (
       <Row>
         <Col>
-          <h1 id="logo">
-            <img src={logoPng} alt="D00MYsGames - A React.JS Multiplayer Games Platform Project"/>
-          </h1>
+          <Logo/>
           <Row className="justify-content-md-center">
-            <Col sm="12" md="8" lg="7" >
+            <Col sm="12" md="8" lg="7">
               <Form
                 noValidate
                 validated={validated}

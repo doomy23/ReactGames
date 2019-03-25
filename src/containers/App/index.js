@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import FontAwesome from 'react-fontawesome';
 import { Container, Row, Col, Nav } from 'react-bootstrap';
 import { Route, Switch, NavLink } from 'react-router-dom';
 
@@ -31,6 +30,7 @@ import GamesPage from '../GamesPage';
 import AboutPage from '../AboutPage';
 import NotFoundPage from '../NotFoundPage';
 
+import FontAwesome from '../../components/FontAwesome';
 import ContentLoading from '../../components/ContentLoading';
 import ContentError from '../../components/ContentError';
 
