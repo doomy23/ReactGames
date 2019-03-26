@@ -4,8 +4,8 @@
   "description": "ReactJS games with websockets and redux architechture",
   "private": true,
   "scripts": {
-    "build": "webpack --config server/webpack.config.js  --color -p --progress --hide-modules",
-    "watch": "webpack --config server/webpack.config.js --watch",
+    "build": "webpack --config server/webpack.prod.config.js  --color -p --progress --hide-modules",
+    "watch": "webpack --config server/webpack.dev.config.js --watch --hide-modules",
     "server": "node server --color -p --progress --hide-modules",
     "test": "mocha test --recursive",
     "cover": "nyc mocha test --recursive",
@@ -29,6 +29,7 @@
   "homepage": "https://github.com/doomy23/ReactGames#readme",
   "configs": {
     "reactgames": {
+      "mode": "production",
       "db": {
         "database": null,
         "username": null,
@@ -40,7 +41,8 @@
       },
       "cookies": {
         "secret": "VZQVOO5zyEMI3Des",
-        "maxAge": 8640000
+        "maxAge": 8640000,
+        "secure": false
       },
       "session": {
         "expires_in": 15,

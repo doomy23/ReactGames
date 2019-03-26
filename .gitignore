@@ -5,6 +5,10 @@
 .reactgamesrc.yml
 .reactgamesrc.js
 reactgames.config.js
+reactgames.prod.config.js
+reactgames.production.config.js
+reactgames.dev.config.js
+reactgames.development.config.js
 
 # Logs
 logs

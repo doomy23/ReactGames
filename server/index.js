@@ -8,10 +8,18 @@ const session = require('express-session');
 const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 
-const webpackConfig = require('./webpack.config.js');
 const setupApi = require('./api.js');
 const config = require('./utils/config');
 const db = require('./database');
+
+// NODE_ENV set from config
+// TODO: Can overwrite with argv
+process.env.NODE_ENV = process.env.NODE_ENV || config.mode;
+
+const webpackConfigPath = `./webpack.${
+  process.env.NODE_ENV == 'development' ? 'dev' : 'prod'
+  }.config.js`;
+const webpackConfig = require(webpackConfigPath);
 
 const app = express();
 const server = http.Server(app);
@@ -19,6 +27,7 @@ const ws = socketIO(server, {
   path: '/api/ws',
   cookie: true
 });
+
 const compiler = webpack(webpackConfig);
 
 app.set('trust proxy', 1);
@@ -31,16 +40,18 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.use(webpackDevMiddleware(compiler, {
-  publicPath: webpackConfig.output.publicPath
-}));
+if(process.env.NODE_ENV === 'development')
+  app.use(webpackDevMiddleware(compiler, {
+    publicPath: webpackConfig.output.publicPath
+  }));
 
 app.use(cookieSession({
   name: 'session',
   keys: [config.cookies.secret],
   maxAge: config.cookies.maxAge || 24 * 60 * 60 * 1000,
   signed: true,
-  overwrite: true
+  overwrite: true,
+  secure: config.cookies.secure
 }));
 
 setupApi(app, ws);

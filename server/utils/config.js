@@ -3,6 +3,7 @@ const cosmiconfig = require('cosmiconfig');
 const { get, defaultsDeep } = require('lodash');
 
 const moduleName = "reactgames";
+
 const explorer = cosmiconfig(moduleName, {
   searchPlaces: [
     `.${moduleName}rc`,
@@ -10,6 +11,10 @@ const explorer = cosmiconfig(moduleName, {
     `.${moduleName}rc.yaml`,
     `.${moduleName}rc.yml`,
     `.${moduleName}rc.js`,
+    `${moduleName}.prod.config.js`,
+    `${moduleName}.production.config.js`,
+    `${moduleName}.dev.config.js`,
+    `${moduleName}.development.config.js`,
     `${moduleName}.config.js`,
   ]
 });

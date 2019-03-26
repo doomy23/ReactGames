@@ -7,7 +7,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: {
     app: path.resolve(__dirname, '../src/app.js'),
     polyfills: path.resolve(__dirname, '../src/polyfills.js')
@@ -95,4 +95,4 @@ module.exports = {
     mainFields: ['browser', 'jsnext:main', 'main'],
   },
   target: 'web'
-}
+};
