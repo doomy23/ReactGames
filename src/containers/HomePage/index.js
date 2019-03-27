@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { get, set } from 'lodash';
+import { get } from 'lodash';
 import {
   Row,
   Col,
@@ -12,11 +12,7 @@ import {
 } from 'react-bootstrap';
 
 import {
-  makeSelectCurrentUser,
-} from '../App/selectors';
-import {
-  loadUser,
-  updateUserName
+  loadUser
 } from '../App/actions';
 import reducer from '../App/reducer';
 
@@ -57,9 +53,6 @@ class HomePage extends React.Component {
 
   render() {
     const {
-      currentUser
-    } = this.props;
-    const {
       validated,
       userNameValid
     } = this.state;
@@ -69,26 +62,22 @@ class HomePage extends React.Component {
         <Col>
           <Logo/>
           <Row className="justify-content-md-center">
-            <Col sm="12" md="8" lg="7">
+            <Col id="home" sm="12" md="8" lg="7">
               <Form
                 noValidate
                 validated={validated}
-                onSubmit={event => this.handleSubmit(event)}
-              >
+                onSubmit={event => this.handleSubmit(event)}>
                 <Form.Group as={Row} controlId="formUserName">
-                  <Col sm="12">
+                  <Col xs={12}>
                     <Form.Control
                       ref="userName"
                       size="lg"
                       type="text"
                       placeholder={"Enter your username".toUpperCase()}
                       name="userName"
-                      defaultValue={currentUser || ''}
-                      onChange={event => this.props.updateUserName(event.target.value.uppercase)}
                       isValid={userNameValid}
                       isInvalid={!userNameValid && typeof userNameValid !== 'undefined'}
-                      required
-                    />
+                      required/>
                     <Form.Control.Feedback type="invalid">
                       Please choose a username of at least 5 characters.
                     </Form.Control.Feedback>
@@ -108,19 +97,10 @@ class HomePage extends React.Component {
 
 HomePage.propTypes = {
   loadUser: PropTypes.func,
-  updateUserName: PropTypes.func,
-
-  currentUser: PropTypes.string,
   validated: PropTypes.bool
 };
 
-const mapDispatchToProps = { loadUser, updateUserName };
-
-const mapStateToProps = createStructuredSelector({
-  currentUser: makeSelectCurrentUser()
-});
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  null,
+  { loadUser }
 )(HomePage);

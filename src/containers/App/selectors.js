@@ -15,7 +15,7 @@ const makeSelectError = () =>
   createSelector(selectGlobal, globalState => globalState.get('error'));
 
 const makeSelectCurrentUser = () =>
-  createSelector(selectGlobal, globalState => globalState.get('currentUser'));
+  createSelector(selectGlobal, globalState => globalState.get('userData'));
 
 const makeSelectLocation = () =>
   createSelector(selectRouter, routerState => routerState.get('location').toJS());

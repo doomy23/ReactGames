@@ -3,8 +3,9 @@ import {
   LOAD_USER,
   LOAD_USER_SUCCESS,
   LOAD_USER_ERROR,
-  UPDATE_USER_NAME,
-  UPDATE_DIMENSIONS
+  UPDATE_DIMENSIONS,
+  UPDATE_USER_NAME_SUCCESS,
+  UPDATE_USER_NAME_ERROR,
 } from './constants';
 
 // The initial state of the App
@@ -12,7 +13,6 @@ const initialState = fromJS({
   loading: false,
   loaded: false,
   error: null,
-  currentUser: null,
   contentHeight: window.innerHeight,
   contentWidth: window.innerWidth,
   userData: {},
@@ -29,16 +29,20 @@ function appReducer(state = initialState, action) {
       return state
         .set('loading', false)
         .set('loaded', true)
-        .set('currentUser', action.data.name)
         .set('userData', action.data);
     case LOAD_USER_ERROR:
       return state
         .set('loading', false)
         .set('loaded', false)
         .set('error', action.error);
-    case UPDATE_USER_NAME:
+    case UPDATE_USER_NAME_SUCCESS:
       return state
-        .set('currentUser', action.userName);
+        .set('userData', {
+          ...state.get('userData'),
+          name: action.data.name});
+    case UPDATE_USER_NAME_ERROR:
+      return state
+        .set('error', action.error);
     case UPDATE_DIMENSIONS:
       return state
         .set('contentHeight', window.innerHeight)

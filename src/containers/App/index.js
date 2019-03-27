@@ -11,7 +11,6 @@ import {
   makeSelectLoading,
   makeSelectLoaded,
   makeSelectError,
-  makeSelectCurrentUser,
   makeSelectContentHeight,
   makeSelectLocation,
 } from './selectors';
@@ -48,7 +47,6 @@ class App extends React.Component {
       loading,
       loaded,
       error,
-      currentUser,
       contentHeight,
       location
     } = this.props;
@@ -99,7 +97,7 @@ class App extends React.Component {
                   <Nav.Item style={{float: 'right'}}>
                     <NavLink exact to={ABOUT_PATH} className="nav-link">
                       About
-                      <FontAwesome name='info-circle'/>
+                      <FontAwesome name="info-circle"/>
                     </NavLink>
                   </Nav.Item>
                 </Nav>
@@ -121,7 +119,6 @@ App.propTypes = {
   loading: PropTypes.bool,
   loaded: PropTypes.bool,
   error: PropTypes.object,
-  currentUser: PropTypes.string,
   contentHeight: PropTypes.number,
   location: PropTypes.object,
 };
@@ -132,7 +129,6 @@ const mapStateToProps = createStructuredSelector({
   loading: makeSelectLoading(),
   loaded: makeSelectLoaded(),
   error: makeSelectError(),
-  currentUser: makeSelectCurrentUser(),
   contentHeight: makeSelectContentHeight(),
   location: makeSelectLocation(),
 });

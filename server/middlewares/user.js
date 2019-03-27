@@ -4,7 +4,7 @@ const config = require('../utils/config');
 const db = require('../database');
 const { SESSION_EXPIRED_ERROR } = require('../utils/errors');
 
-module.exports = (uuid, req, res, next) => {
+module.exports = (uuid, req, res, ws, next) => {
   db.User.findByPk(uuid).then((user) => {
     if(user) {
       // Check user expiresAt

@@ -1,3 +1,5 @@
+/* bootstrap overwrites */
+
 html, body, #app {
   width: 100%;
   height: 100%;
@@ -12,23 +14,6 @@ body {
   background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom, #45484d 0%,#000000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
-}
-
-header{
-  height: 40px;
-  border-bottom-color: #000000;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f3f3f3+50,ededed+51,ffffff+100;White+Gloss+%232 */
-  background: #ffffff; /* Old browsers */
-  background: -moz-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
-}
-
-header .nav-link .fa {
-  margin-left: 5px;
 }
 
 .nav {
@@ -52,6 +37,25 @@ header .nav-link .fa {
   background: -webkit-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+}
+
+/* Layout */
+
+header{
+  height: 40px;
+  border-bottom-color: #000000;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f3f3f3+50,ededed+51,ffffff+100;White+Gloss+%232 */
+  background: #ffffff; /* Old browsers */
+  background: -moz-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+}
+
+header .nav-link .fa {
+  margin-left: 5px;
 }
 
 #content {
@@ -79,6 +83,8 @@ header .nav-link .fa {
   color: #19672b;
 }
 
+/* Components */
+
 #content .content--loading,
 #content .content--error {
   padding-top: 40px;
@@ -103,13 +109,26 @@ header .nav-link .fa {
   height: auto;
 }
 
-#content form #formUserName {
+/* Home Page */
+
+#content #home form #formUserName {
   text-align: center;
 }
 
-#content form #formUserNameSubmit {
+#content #home form #formUserNameSubmit {
   width: 100%;
   text-transform: uppercase;
+}
+
+/* About Page */
+
+.content-transition-appear {
+  opacity: 0.01;
+}
+
+.content-transition-appear.content-transition-appear-active {
+  opacity: 1;
+  transition: opacity .75s ease-in;
 }
 
 #content ul.original-contributors {
@@ -119,7 +138,6 @@ header .nav-link .fa {
 #content ul.original-contributors li img {
   height: auto;
   width: 100px;
-  max-width: 100%;
   border-radius: 100px;
   float: left;
   margin-right: 20px;
@@ -142,11 +160,73 @@ header .nav-link .fa {
   margin: 20px;
 }
 
-.content-transition-appear {
-  opacity: 0.01;
+/* Games Page */
+
+#content #user,
+#content #users,
+#content #chat {
+  margin-bottom: 20px;
 }
 
-.content-transition-appear.content-transition-appear-active {
-  opacity: 1;
-  transition: opacity .75s ease-in;
+#content #user .image {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#content #user .image img {
+  height: auto;
+  max-width: 70px;
+  border-radius: 100%;
+  border: 1px #CCCCCC solid;
+}
+
+#content #user .name {
+  text-align: center;
+}
+
+#content #user .name h2 {
+  font-size: 1.6rem;
+  position: relative;
+  padding: 5px;
+  display: block;
+  border-radius: 10px;
+  border: 1px #CCCCCC solid;
+}
+
+#content #user .name h2:hover {
+  background: #DDDDDD;
+  cursor: pointer;
+}
+
+#content #user .name h2 i.status--online {
+  position: absolute;
+  top: 13.3px;
+  left: 8px;
+  color: #28a745;
+  font-size: 1rem;
+}
+
+#content #user .name h2 i.status--online:hover {
+  color: #28a745;
+}
+
+#content #user .name h2 i.edit {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: #666666;
+}
+
+#content #user .name h2 i:hover {
+  color: #666666;
+}
+
+#content #user .name .form-group {
+  margin-bottom: 0px;
+}
+
+#content #user .name .form-group input {
+  width: 100%;
+  text-align: center;
+  font-size: 1.42rem;
 }

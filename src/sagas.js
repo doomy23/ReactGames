@@ -3,33 +3,41 @@ import { get } from 'lodash';
 
 import Api from './utils/api';
 import Websocket from './utils/websocket';
-import WebsocketsEvents from './websockets';
+
 import {
   LOAD_USER,
-  LOAD_USER_SUCCESS,
-  LOAD_USER_ERROR
+  UPDATE_USER_NAME
 } from './containers/App/constants';
 import {
-  loadUser,
   loadUserSuccess,
-  loadUserError
+  loadUserError,
+  updateUserNameSuccess,
+  updateUserNameError
 } from './containers/App/actions';
 
 const fetchApi = (url) => Api.get(url);
 const postApi = (url, params) => Api.post(url, params);
 
-function* initWebsocketsEvents(uuid) {
-  // Create websocket and bind events
-  const websocketsEvents = new WebsocketsEvents();
-  websocketsEvents.bind(Websocket(uuid));
+const websocketEmit = (name, message) => {
+  return new Promise((resolve, reject) => {
+    Websocket().emit(name, message);
+    Websocket().once(name, response => {
+      resolve(response);
+    });
+  });
 }
 
-export function* getUserUuid(action) {
+function* initWebsocketsEvents(uuid) {
+  // Create websocket with uuid
+  Websocket(uuid);
+}
+
+export function* loadUserSaga(action) {
   try {
-    const response = yield call(postApi, 'user/uuid', {
+    const response = yield call(postApi, 'user/load', {
       userName: get(action, 'userName', null)
     });
-    yield put(loadUserSuccess(response.data));
+    yield put(loadUserSuccess(response.data.data));
     yield initWebsocketsEvents(get(response.data, 'data.uuid'));
   } catch (e) {
     const error = get(e, 'response.data.error', {code: 500, message: e.message});
@@ -37,6 +45,17 @@ export function* getUserUuid(action) {
   }
 }
 
+export function* updateUserNameSaga(action) {
+  const userName = get(action, 'userName', null);
+  const response = yield call(websocketEmit, 'user/update/name', userName);
+
+  if(response.error)
+    yield put(updateUserNameSuccess(response.error));
+  else if(response.data)
+    yield put(updateUserNameSuccess(response.data));
+}
+
 export default function* rootSaga() {
-  yield takeLatest(LOAD_USER, getUserUuid);
+  yield takeLatest(LOAD_USER, loadUserSaga);
+  yield takeLatest(UPDATE_USER_NAME, updateUserNameSaga);
 }

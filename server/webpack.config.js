@@ -28,8 +28,8 @@ module.exports = {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: "css/[name].css",
-      chunkFilename: "css/[id].css"
+      filename: "css/[hash].css",
+      chunkFilename: "css/[hash][id].css"
     }),
     new HtmlWebpackPlugin({
       title: 'D00MYs Games - A React.JS Project',
@@ -48,7 +48,7 @@ module.exports = {
         }
       },
       {
-        test: /\.s?css$/,
+        test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
       {

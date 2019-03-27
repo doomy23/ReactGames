@@ -2,7 +2,7 @@ const { find } = require('lodash');
 
 const controllers = require('../controllers');
 
-module.exports = (req, res, next) => {
+module.exports = (req, res, ws, next) => {
   const urlParams = req.url.split('/');
   let foundApiRoute = false;
 
@@ -20,7 +20,7 @@ module.exports = (req, res, next) => {
 
         if(route) {
           foundApiRoute = true;
-          route.call.bind(instance)(req, res);
+          route.call.bind(instance)(req, res, ws);
         }
       }
     }
