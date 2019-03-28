@@ -1,15 +1,36 @@
 import io from 'socket.io-client';
 
-let socket = null;
+import { PromiseWithTimeout } from './promise';
 
-export default (uuid) => {
-  if(!socket)
-    socket = io(`${window.location.protocol}//${window.location.hostname}:${window.location.port}`, {
+class Websocket {
+  static instance = null;
+
+  static getInstance () {
+    if (!Websocket.instance) {
+      Websocket.instance = io(`${window.location.protocol}//${window.location.hostname}:${window.location.port}`);
+    }
+    return Websocket.instance;
+  }
+
+  static setup(uuid) {
+    Websocket.instance = io(`${window.location.protocol}//${window.location.hostname}:${window.location.port}`, {
       path: '/api/ws',
-      query: {
-        uuid
-      }
+      query: { uuid }
     });
 
-  return socket;
-};
+    const promise = PromiseWithTimeout(60000,
+      (resolve, reject) => {
+        Websocket.instance.on('connect', () => {
+          console.log('YO', Websocket.instance);
+          resolve(Websocket.instance);
+        });
+    });
+
+    if(!Websocket.instance.connected)
+      Websocket.instance.connect();
+
+    return promise;
+  }
+}
+
+export default Websocket;

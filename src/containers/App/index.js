@@ -17,12 +17,11 @@ import {
 import {
   updateDimensions
 } from './actions';
-import reducer from './reducer';
 
 import {
   HOME_PATH,
   ABOUT_PATH,
-} from './routes';
+} from '../../utils/routes';
 
 import HomePage from '../HomePage';
 import GamesPage from '../GamesPage';
@@ -30,8 +29,8 @@ import AboutPage from '../AboutPage';
 import NotFoundPage from '../NotFoundPage';
 
 import FontAwesome from '../../components/FontAwesome';
-import ContentLoading from '../../components/ContentLoading';
-import ContentError from '../../components/ContentError';
+import ContentLoading from '../../components/Loading/ContentLoading';
+import ContentError from '../../components/Error/ContentError';
 
 class App extends React.Component {
   componentDidMount() {

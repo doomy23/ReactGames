@@ -14,7 +14,6 @@ import {
 import {
   loadUser
 } from '../App/actions';
-import reducer from '../App/reducer';
 
 import Logo from '../../components/Header/Logo';
 

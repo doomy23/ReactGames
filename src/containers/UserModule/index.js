@@ -104,9 +104,6 @@ class UserModule extends React.Component {
                 isValid={userNameValid}
                 isInvalid={!userNameValid}
                 required/>
-              <Form.Control.Feedback type="invalid">
-                Please choose a username of at least 5 characters.
-              </Form.Control.Feedback>
             </Form.Group>
           </Form>
         ) : (

@@ -32,7 +32,7 @@ module.exports = {
       chunkFilename: "css/[hash][id].css"
     }),
     new HtmlWebpackPlugin({
-      title: 'D00MYs Games - A React.JS Project',
+      title: 'D00MYsGames - A React.JS Project for fun!',
       template: path.resolve(__dirname, '../src/index.html'),
       excludeChunks: ['polyfills'],
       cache: true

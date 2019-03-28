@@ -5,6 +5,7 @@ import {
 } from 'react-bootstrap';
 
 import UserModule from '../UserModule';
+import OnlineModule from '../OnlineModule';
 
 class GamesPage extends React.Component {
   render() {
@@ -17,10 +18,7 @@ class GamesPage extends React.Component {
         <Col md={4}>
           <Row>
             <UserModule/>
-            <Col id="users" xs={12}>
-              <h2>Online</h2>
-
-            </Col>
+            <OnlineModule/>
             <Col id="chat" xs={12}>
               <h2>Chat</h2>
 

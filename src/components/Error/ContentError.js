@@ -15,7 +15,7 @@ class ContentError extends React.Component {
         <Col>
           <h1>
             <FontAwesome name='exclamation-triangle'/>
-            Error {get(error, 'code', '')}!
+            <span> Error {get(error, 'code', '')}!</span>
           </h1>
           <div>
             {get(error, 'message', 'An error occured, please try again')}

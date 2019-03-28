@@ -13,9 +13,11 @@ const initialState = fromJS({
   loading: false,
   loaded: false,
   error: null,
+  // Screen dimensions
   contentHeight: window.innerHeight,
   contentWidth: window.innerWidth,
-  userData: {},
+  // Current user
+  user: {}
 });
 
 function appReducer(state = initialState, action) {
@@ -29,7 +31,7 @@ function appReducer(state = initialState, action) {
       return state
         .set('loading', false)
         .set('loaded', true)
-        .set('userData', action.data);
+        .set('user', action.data);
     case LOAD_USER_ERROR:
       return state
         .set('loading', false)
@@ -37,8 +39,8 @@ function appReducer(state = initialState, action) {
         .set('error', action.error);
     case UPDATE_USER_NAME_SUCCESS:
       return state
-        .set('userData', {
-          ...state.get('userData'),
+        .set('user', {
+          ...state.get('user'),
           name: action.data.name});
     case UPDATE_USER_NAME_ERROR:
       return state

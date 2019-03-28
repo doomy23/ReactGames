@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect';
-import { initialState } from './reducer';
 
 const selectGlobal = state => state.get('global');
 
@@ -15,7 +14,7 @@ const makeSelectError = () =>
   createSelector(selectGlobal, globalState => globalState.get('error'));
 
 const makeSelectCurrentUser = () =>
-  createSelector(selectGlobal, globalState => globalState.get('userData'));
+  createSelector(selectGlobal, globalState => globalState.get('user'));
 
 const makeSelectLocation = () =>
   createSelector(selectRouter, routerState => routerState.get('location').toJS());

@@ -1,20 +1,29 @@
+// For testing purpose in dev
 const process = require('process');
 const sleep = require('system-sleep');
+
 const { get } = require('lodash');
 const Moment = require('moment');
 
 const db = require('../database');
 const config = require('../utils/config');
 const { makeSuccessResponse } = require('../utils/response');
+
+const {
+  LOAD_USER_CALL,
+  UPDATE_USER_NAME_CALL,
+  UPDATE_ONLINE_NAME_CALL
+} = require('../utils/apiCalls');
 const {
   LOAD_USER_ERROR,
   UPDATE_USER_NAME_ERROR,
 } = require('../utils/errors');
 
-class UserController{
+class UserController {
   constructor() {
+    // Routes URLs for the Ajax API
     this.routes = [
-      {url: '/api/user/load', call: this.load}
+      {url: `/api/${LOAD_USER_CALL}`, call: this.load}
     ];
   }
 
@@ -57,33 +66,27 @@ class UserController{
     }
   }
 
-  updateName(req, res, ws, socket, name) {
+  updateName(req, ws, socket, name) {
     if(req.user) {
       req.user.name = name;
 
       req.user.save().then(() => {
-        socket.emit('user/update/name', makeSuccessResponse({
+        socket.emit(UPDATE_USER_NAME_CALL, makeSuccessResponse({
           name: name
         }));
-        
+
         // Send to all except the user
-        socket.broadcast.emit('users/update/name', makeSuccessResponse({
+        socket.broadcast.emit(UPDATE_ONLINE_NAME_CALL, makeSuccessResponse({
           id: socket.id,
           name: name
         }));
 
       }).catch((error) => {
-        if(res)
-          res.status(500).json(UPDATE_USER_NAME_ERROR);
-        else
-          socket.emit('user/update/name', UPDATE_USER_NAME_ERROR);
+        socket.emit(UPDATE_USER_NAME_CALL, UPDATE_USER_NAME_ERROR);
       });
 
     } else {
-      if(res)
-        res.status(500).json(UPDATE_USER_NAME_ERROR);
-      else
-        socket.emit('user/update/name', UPDATE_USER_NAME_ERROR);
+      socket.emit(UPDATE_USER_NAME_CALL, UPDATE_USER_NAME_ERROR);
     }
   }
 }

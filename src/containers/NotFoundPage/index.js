@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ContentError from '../../components/ContentError';
+import ContentError from '../../components/Error/ContentError';
 
 class NotFound extends React.Component {
   render() {
